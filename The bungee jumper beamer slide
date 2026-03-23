@@ -1,0 +1,122 @@
+\documentclass[10pt, aspectratio=169]{beamer}
+\usetheme[progressbar=frametitle]{metropolis}
+
+% --- Packages for Professional Formatting ---
+\usepackage{booktabs} % For high-quality tables
+\usepackage{xcolor}   % For custom colors
+\usepackage{textcomp} % For symbols
+
+% --- Custom School Identity ---
+\definecolor{DeepBlue}{RGB}{0, 51, 102}
+\setbeamercolor{palette primary}{bg=DeepBlue, fg=white}
+
+% --- Metadata ---
+\title{Bungee Jump Dynamics: A Computational Model}
+\subtitle{Numerical Integration and Physics Simulation}
+\author{Groups 1 \& 7}
+\institute{St John Baptist De La Salle Catholic School}
+\date{March 20, 2026}
+
+\begin{document}
+
+\maketitle
+
+% --- SLIDE 1: Project Objectives ---
+\section{Project Introduction}
+\begin{frame}{Simulation Goals}
+    The objective was to create a 3D environment that accurately predicts the motion of a bungee jumper using a discrete-time simulation.
+    
+    \begin{itemize}
+        \item \textbf{System Variables:} Tracking position, velocity, and acceleration.
+        \item \textbf{Safety Analysis:} Calculating maximum cord stretch and G-forces.
+        \item \textbf{Environmental Factors:} Including air resistance (damping) and gravitational pull.
+    \end{itemize}
+    
+    \begin{block}{The Scientific Approach}
+        Instead of using one-size-fits-all formulas, we programmed the computer to recalculate the "state" of the jumper every 0.01 seconds.
+    \end{block}
+\end{frame}
+
+% --- SLIDE 2: Physics Constants & Setup ---
+\section{System Configuration}
+\begin{frame}{Physical Constants}
+    Our Python script utilizes specific constants to ensure the simulation is grounded in real-world physics:
+
+    \begin{table}[]
+        \centering
+        \begin{tabular}{lcl}
+            \toprule
+            \textbf{Variable} & \textbf{Value} & \textbf{Description} \\
+            \midrule
+            $m$ & 70 kg & Mass of the Jumper \\
+            $k$ & 120 N/m & Spring Stiffness \\
+            $L_0$ & 10 m & Natural Cord Length \\
+            $g$ & 9.8 m/s$^2$ & Acceleration due to Gravity \\
+            $b$ & 1.8 & Damping (Air Resistance) \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \textbf{Initial Condition:} The jumper begins with an outward velocity vector of (4, 2, 0) to simulate a realistic leap away from the building ledge.
+\end{frame}
+
+% --- SLIDE 3: The Logic Loop (How it Works) ---
+\section{Algorithmic Logic}
+\begin{frame}{The Simulation Loop}
+    \begin{enumerate}
+        \item \textbf{Distance Check:} The code measures the distance from the anchor to the jumper.
+        \item \textbf{Force Assessment:} 
+        \begin{itemize}
+            \item If distance $\leq 10m$: Only Gravity and Drag are applied.
+            \item If distance $> 10m$: The Bungee Cord "kicks in" with a restoring force.
+        \end{itemize}
+        \item \textbf{Update Sequence:}
+        \begin{itemize}
+            \item New Acceleration = Net Force / Mass
+            \item New Velocity = Old Velocity + (Acceleration $\times$ Time Step)
+            \item New Position = Old Position + (New Velocity $\times$ Time Step)
+        \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+% --- SLIDE 4: Simulation Results ---
+\section{Analysis}
+\begin{frame}{Final Performance Data}
+    Based on the Euler-Cromer integration within VPython, the following results were captured at the lowest point of the fall:
+
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{block}{Key Safety Metrics}
+                \begin{itemize}
+                    \item \textbf{Max Cord Stretch:} 16.44 m
+                    \item \textbf{Max G-Force:} 1.91 g
+                    \item \textbf{Min Height Above Ground:} 2.67 m
+                \end{itemize}
+            \end{block}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \textbf{Observations:}
+            \begin{itemize}
+                \item The maximum G-force is within the human safety limit (typically $< 5g$ for recreational jumps).
+                \item The 6.24m clearance ensures the jumper does not impact the ground box ($y=0$).
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 5: Conclusion ---
+\section{Conclusion}
+\begin{frame}{Summary and Findings}
+    \begin{itemize}
+        \item \textbf{Model Reliability:} The use of a small time step ($dt=0.01$) ensures the energy conservation of the system is maintained.
+        \item \textbf{Damping Importance:} Without the air resistance ($b=1.8$), the jumper would bounce indefinitely; our model shows a realistic decay in oscillation.
+        \item \textbf{Future Improvements:} Adding wind vectors or varying cord elasticity for different jumper weights.
+    \end{itemize}
+
+    \vspace{1cm}
+    \begin{center}
+        \textcolor{DeepBlue}{\textbf{Thank you for your attention.}}
+    \end{center}
+\end{frame}
+
+\end{document}
