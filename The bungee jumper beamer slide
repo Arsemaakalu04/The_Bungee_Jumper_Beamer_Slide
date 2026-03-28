@@ -48,9 +48,9 @@
             \toprule
             \textbf{Variable} & \textbf{Value} & \textbf{Description} \\
             \midrule
-            $m$ & 70 kg & Mass of the Jumper \\
-            $k$ & 120 N/m & Spring Stiffness \\
-            $L_0$ & 10 m & Natural Cord Length \\
+            $m$ & 90 kg & Mass of the Jumper \\
+            $k$ & 137 N/m & Spring Stiffness \\
+            $L_0$ & 12 m & Natural Cord Length \\
             $g$ & 9.8 m/s$^2$ & Acceleration due to Gravity \\
             $b$ & 1.8 & Damping (Air Resistance) \\
             \bottomrule
